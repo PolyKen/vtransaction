@@ -1,14 +1,16 @@
 $(document).ready(function () {
-    $("#buy").click(function () {
+    $("#buy").on("click", function () {
         $("#sell").prop("checked", false);
     });
 
-    $("#sell").click(function () {
+    $("#sell").on("click", function () {
         $("#buy").prop("checked", false);
     });
 
-    $("#confirm").click(function() {
+    $("#confirm").on("click", function() {
        let mode = $("#buy").prop("checked");
+       let color_class = mode ? "red" : "green";
+
        if (mode){
            mode = "buy ";
        }
@@ -19,22 +21,42 @@ $(document).ready(function () {
        let price = $("#price").val();
        let num = $("#num").val();
 
-       add_log(mode + " " + num.toString() + " " + price.toString());
+       let text = num.toString() + " hand(s), price: ¥" + price.toString();
+       if (mode == "buy "){
+           add_buy_record(num, price);
+       }
+       add_log(mode + " " + text, color_class);
     });
 
     add_log("start");
     draw();
-})
+});
 
-function add_log(text) {
-    $(".logger-text-area").append("<p>> "+text+"</p>");
-    let height = $(".logger-text-area")[0].scrollHeight;
-    $(".logger-text-area").scrollTop(height);
+function read_table(table_selector){
+    let data_set = $(table_selector + " td");
+    let table_array = Array();
+    for (let i=0;i<data_set.length;i++){
+        let temp_array = Array();
+        temp_array.push(data_set[i]);
+    }
+}
+
+function add_buy_record(hand, price){
+    let buy_list = $(".buy-list tbody");
+    console.log(buy_list);
+    buy_list.append("<tr><td>1</td><td>" + hand.toString() + "</td><td>" + price.toString() + "</td></tr>");
+}
+
+function add_log(text, color_class="") {
+    let selector = $(".logger-text-area");
+    selector.append("<p class=\"" + color_class + "\">> " + text + "</p>");
+    let height = selector.scrollHeight;
+    selector.scrollTop(height);
 }
 
 function draw() {
-    var canvas = new fabric.Canvas("canv");
-    var rect = new fabric.Rect({
+    let canvas = new fabric.Canvas("canv");
+    let rect = new fabric.Rect({
         left: 0,
         top: 100,
         fill: 'black', 
