@@ -1,0 +1,39 @@
+.row {
+    margin: 10px 0 10px 0;
+}
+
+.logger-text-area p {
+    font-family: 'Consolas';
+    font-size: 14px;
+}
+
+.logger-text-area {
+    padding: 15px 15px 15px 15px;
+}
+
+.logger {
+    height: 40px;
+}
+
+.jumbotron {
+    margin: 15px;
+}
+
+.row1 .jumbotron {
+    height: 200px;
+}
+
+#price-panel {
+    padding: 30px;
+}
+
+#jumbotron-canv {
+    padding: 0;
+}
+
+#canv {
+    margin: 0;
+    padding: 0;
+    height: 200px;
+    width: 400px;
+}
