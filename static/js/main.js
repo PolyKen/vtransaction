@@ -2,7 +2,7 @@ $(document).ready(function() {
   add_log("start");
   update_canvas();
   $("#user-1").prop("checked", true);
-  user_id = "user 1";
+  user_id = "Tom";
 
   $("#buy").on("click", function() {
     $("#sell").prop("checked", false);
@@ -14,12 +14,12 @@ $(document).ready(function() {
 
   $("#user-1").on("click", function() {
     $("#user-2").prop("checked", false);
-    user_id = "user 1";
+    user_id = "Tom";
   });
 
   $("#user-2").on("click", function() {
     $("#user-1").prop("checked", false);
-    user_id = "user 2";
+    user_id = "Jerry";
   });
 
   $("#confirm").on("click", confirm);
