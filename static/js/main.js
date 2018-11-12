@@ -82,10 +82,19 @@ function confirm() {
   }
   start_price = Math.floor(start_price);
   end_price = Math.ceil(end_price);
+  alert(start_price.toString() + ' ' + end_price.toString());
 
   let canvas = update_canvas();
   update_bid_on_canvas(canvas, buy_table, "red");
   update_bid_on_canvas(canvas, sell_table, "green");
+}
+
+function max(a, b) {
+    return a > b ? a : b;
+}
+
+function min(a, b) {
+    return a < b ? a : b;
 }
 
 function process_transaction(buy_or_sell) {
