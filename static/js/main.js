@@ -71,22 +71,17 @@ function confirm() {
   update_table(".buy-list tbody", buy_table);
   update_table(".sell-list tbody", sell_table);
 
-  start_price = INF;
-  end_price = -INF;
-
   /* update lowest and highest price */
   if (buy_table.length > 0) {
     start_price = buy_table[buy_table.length - 1][2];
-    if (start_price > end_price) {
-      end_price = start_price;
-    }
+    end_price = buy_table[0][2];
   }
   if (sell_table.length > 0) {
-    end_price = sell_table[sell_table.length - 1][2];
-    if (start_price > end_price) {
-      start_price = end_price;
-    }
+    end_price = max(end_price, sell_table[sell_table.length - 1][2]);
+    start_price = min(start_price, sell_table[0][2]);
   }
+  start_price = Math.floor(start_price);
+  end_price = Math.ceil(end_price);
 
   let canvas = update_canvas();
   update_bid_on_canvas(canvas, buy_table, "red");
