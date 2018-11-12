@@ -27,23 +27,24 @@ $(document).ready(function () {
             return;
         }
 
-        let text = num.toString() + " hand(s), price: ¥" + price.toString();
+        let text = num + " hand(s), price: ¥" + price;
+        add_log(mode + " " + text, color_class);
+        num = parseInt(num);
+        price = parseFloat(price);
+
         if (mode == "buy ") {
-            raw_table = read_table(".buy-list tbody");
-            raw_table.push(new Array("", num.toString(), price.toString()));
-            sorted_table = sort_table(raw_table, 2);
-            update_table(".buy-list tbody", sorted_table);
+            buy_table.push(new Array("", num, price));
+            sort(buy_table, 2, "decline");
+            update_table(".buy-list tbody", buy_table);
         } else {
-            raw_table = read_table(".sell-list tbody");
-            raw_table.push(new Array("", num.toString(), price.toString()));
-            sorted_table = sort_table(raw_table, 2);
-            update_table(".sell-list tbody", sorted_table);
+            sell_table.push(new Array("", num, price));
+            sort(sell_table, 2, "rise");
+            update_table(".sell-list tbody", sell_table);
         }
 
-        add_log(mode + " " + text, color_class);
         let canvas = update_canvas();
-        update_bid_on_canvas(canvas, read_table(".buy-list tbody"), 'red');
-        update_bid_on_canvas(canvas, read_table(".sell-list tbody"), 'green');
+        update_bid_on_canvas(canvas, buy_table, 'red');
+        update_bid_on_canvas(canvas, sell_table, 'green');
     });
 });
 
@@ -53,58 +54,43 @@ var start_pos = 0;
 var end_price = 0;
 var end_pos = 0;
 
-function swap(arr, i, j) {
-    let temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-}
+var buy_table = Array();
+var sell_table = Array();
 
-function sort_table(rows, sort_ind) {
-    let new_rows = Array();
-    let values = Array();
-    let indices = Array();
-    $.map(rows, function (row, ind) {
-        values.push(parseFloat(row[sort_ind]));
-        indices.push(ind);
-    })
-    for (let i = 0; i < values.length; i++) {
-        let max = 0;
-        let max_ind = 0;
-        for (let j = i; j < values.length; j++) {
-            if (max < values[j]) {
-                max = values[j];
-                max_ind = j;
+function sort(table, sort_ind, order) {
+    if (order == "decline"){
+        for (let i = 0; i < table.length; i++) {
+            let max_value = -INF, max_ind = i;
+            for (let j = i; j < table.length; j++){
+                if (max_value < table[j][sort_ind]) {
+                    max_value = table[j][sort_ind];
+                    max_ind = j;
+                }
             }
+            let temp1 = table[i][1], temp2 = table[i][2];
+            table[i][1] = table[max_ind][1];
+            table[i][2] = table[max_ind][2];
+            table[max_ind][1] = temp1;
+            table[max_ind][2] = temp2;
         }
-        swap(indices, i, max_ind);
-        swap(values, i, max_ind);
-    }
-    for (let i = 0; i < indices.length; i++) {
-        new_rows.push(rows[indices[i]]);
     }
 
-    if (start_price > parseFloat(new_rows[new_rows.length - 1][2])) {
-        start_price = parseFloat(new_rows[new_rows.length - 1][2]);
-        start_price = Math.round(start_price);
+    if (order == "rise"){
+        for (let i = 0; i < table.length; i++) {
+            let min_value = INF, min_ind = i;
+            for (let j = i; j < table.length; j++){
+                if (min_value > table[j][sort_ind]) {
+                    min_value = table[j][sort_ind];
+                    min_ind = j;
+                }
+            }
+            let temp1 = table[i][1], temp2 = table[i][2];
+            table[i][1] = table[min_ind][1];
+            table[i][2] = table[min_ind][2];
+            table[min_ind][1] = temp1;
+            table[min_ind][2] = temp2;
+        }
     }
-    if (end_price < parseFloat(new_rows[0][2])) {
-        end_price = parseFloat(new_rows[0][2]);
-        end_price = Math.round(end_price);
-    }
-    return new_rows;
-}
-
-function read_table(table_selector) {
-    let raw_rows = $(table_selector).children();
-    let rows = Array();
-    $.map(raw_rows, function (row) {
-        let each_row = Array();
-        $.map($(row).children(), function (col) {
-            each_row.push($(col).text());
-        })
-        rows.push(each_row);
-    })
-    return rows;
 }
 
 function update_table(tbody_selector, table_array) {
@@ -250,5 +236,7 @@ function update_bid_on_canvas(canvas, table, color) {
             pos = (start_pos + end_pos) / 2;
         }
         canvas.add(add_triangle(pos, base_height + 5, color));
+        canvas.add(add_scale_text(hand.toString() + "手", 14, pos - 3, base_height + 20, color));
+        canvas.add(add_scale_text(price.toString() + "元", 14, pos - 3, base_height + 40, color));
     }
 }
