@@ -22,6 +22,8 @@ def read():
     try:
         transaction_table = read_transaction()
         wish_table = read_wish()
+        print(transaction_table)
+        print(wish_table)
     except Exception as e:
         print(e)
         return str(e)
