@@ -16,26 +16,33 @@ def test():
     except Exception as e:
         print(e)
         return str(e)
-    return 'success'
+    return 'test success'
 
 @app.route('/process')
 def process():
     try:
         wish_table = read_table("wish")
+        process_transaction(wish_table)
+    except Exception as e:
+        print(e)
+        return str(e)
+    return 'process success'
+
+@app.route('/read-transaction')
+def read_transaction():
+    try:
+        transaction_table = read_table("transaction")
+        return transaction_table
     except Exception as e:
         print(e)
         return str(e)
     return 'success'
 
-@app.route('/read')
-def read():
+@app.route('/read-wish')
+def read_wish():
     try:
-        transaction_table = read_table("transaction")
         wish_table = read_table("wish")
-        print('transaction:')
-        print(transaction_table)
-        print('wish')
-        print(wish_table)
+        return wish_table
     except Exception as e:
         print(e)
         return str(e)

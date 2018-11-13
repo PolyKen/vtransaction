@@ -27,6 +27,7 @@ def process_transaction(wish_table):
         else:
             if mode == 0: # buy
                 buy_quantity = buy_table[0]["quantity"]
+                buy_user = buy_table[0]["user"]
                 for i in range(len(sell_table)):
                     sell_user = sell_table[i]["user"]
                     sell_quantity = sell_table[i]["quantity"]
@@ -34,10 +35,12 @@ def process_transaction(wish_table):
                     if buy_quantity < sell_quantity:
                         sell_table[i]["quantity"] -= buy_quantity
                         buy_table.pop(0)
+                        add_transaction(buy_user, sell_user, buy_quantity, sell_price)
                         return
                     else:
                         buy_quantity -= sell_quantity
                         sell_table.pop(0)
+                        add_transaction(buy_user, sell_user, sell_quantity, sell_price)
                         if buy_quantity > 0:
                             buy_table[0]["quantity"] = buy_quantity
                         else:
@@ -45,6 +48,7 @@ def process_transaction(wish_table):
                             return
             if mode == 1:
                 sell_quantity = sell_table[0]["quantity"]
+                sell_user = sell_table[0]["user"]
                 for i in range(len(buy_table)):
                     buy_user = buy_table[i]["user"]
                     buy_quantity = buy_table[i]["quantity"]
@@ -52,10 +56,12 @@ def process_transaction(wish_table):
                     if sell_quantity < buy_quantity:
                         buy_table[i]["quantity"] -= sell_quantity
                         sell_table.pop(0)
+                        add_transaction(buy_user, sell_user, sell_quantity, buy_price)
                         return
                     else:
                         sell_quantity -= buy_quantity
                         buy_table.pop(0)
+                        add_transaction(buy_user, sell_user, buy_quantity, sell_price)
                         if sell_quantity > 0:
                             sell_table[0]["quantity"] = sell_quantity
                         else:
@@ -70,6 +76,7 @@ def add_transaction(buy_user, sell_user, quantity, price):
     insert("transaction", values)
 
 
+# user: string, mode: int(0 or 1, buy or sell), quantity: int, price: float
 def add_wish(user, mode, quantity, price):
     id = "null"
     dt = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
