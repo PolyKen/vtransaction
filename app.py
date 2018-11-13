@@ -28,7 +28,8 @@ def read():
     return 'success'
 
 @app.route('/write/')
-
+def write():
+    return 'nothing'
 
 
 if __name__ == '__main__':
