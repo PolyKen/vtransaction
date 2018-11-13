@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from database import test_database
+from database import *
 
 app = Flask(__name__)
 
@@ -16,6 +16,19 @@ def test():
         print(e)
         return str(e)
     return 'success'
+
+@app.route('/read')
+def read():
+    try:
+        transaction_table = read_transaction()
+        wish_table = read_wish()
+    except Exception as e:
+        print(e)
+        return str(e)
+    return 'success'
+
+@app.route('/write/')
+
 
 
 if __name__ == '__main__':
