@@ -65,7 +65,7 @@ def process_transaction(wish_table):
 def add_transaction(buy_user, sell_user, quantity, price):
     id = "null"
     dt = int(time.time())
-    values = [id, dt, buy_user, sell_user, quantity, price]
+    values = [id, str(dt), str(buy_user), str(sell_user), str(quantity), str(price)]
     insert("transaction", values)
 
 

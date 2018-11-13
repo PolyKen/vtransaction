@@ -15,6 +15,10 @@ def read_table(table_name):
             results = cursor.fetchall()
             for row in results:
                 table.append(row)
+    except Exception as e:
+        print(e)
+        conn.close()
+        return -1
     finally:
         conn.close()
         return table
@@ -30,6 +34,10 @@ def insert(table_name, values):
             values_str = values_str[:-1] + ")"
             cursor.execute("insert into " + table_name + " values " + values_str)
             conn.commit()
+    except Exception as e:
+        print(e)
+        conn.close()
+        return -1
     finally:
         conn.close()
         return table
