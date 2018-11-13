@@ -64,15 +64,15 @@ def process_transaction(wish_table):
 
 def add_transaction(buy_user, sell_user, quantity, price):
     id = "null"
-    dt = int(time.time())
-    values = [id, str(dt), str(buy_user), str(sell_user), str(quantity), str(price)]
+    dt = int(time.time() * 1000000)
+    values = [id, "\'" + str(dt) + "\'", "\'" + str(buy_user) + "\'", "\'" + str(sell_user) + "\'", str(quantity), str(price)]
     insert("transaction", values)
 
 
 def add_wish(user, mode, quantity, price):
     id = "null"
-    dt = int(time.time())
-    values = [id, dt, user, mode, quantity, price]
+    dt = int(time.time() * 1000000)
+    values = [id, "\'" + dt + "\'", "\'" + user + "\'", mode, quantity, price]
     insert("wish", values)
     
 
