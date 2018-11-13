@@ -32,6 +32,7 @@ def insert(table_name, values):
             for val in values:
                 values_str += str(val) + ","
             values_str = values_str[:-1] + ")"
+            print(values_str)
             cursor.execute("insert into " + table_name + " values " + values_str)
             conn.commit()
     except Exception as e:
