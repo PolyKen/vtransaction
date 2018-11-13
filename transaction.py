@@ -1,4 +1,5 @@
 import time
+import datetime
 from database import *
 
 
@@ -64,14 +65,14 @@ def process_transaction(wish_table):
 
 def add_transaction(buy_user, sell_user, quantity, price):
     id = "null"
-    dt = int(time.time() * 1000000)
+    dt = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     values = [id, "\'" + str(dt) + "\'", "\'" + str(buy_user) + "\'", "\'" + str(sell_user) + "\'", str(quantity), str(price)]
     insert("transaction", values)
 
 
 def add_wish(user, mode, quantity, price):
     id = "null"
-    dt = int(time.time() * 1000000)
+    dt = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     values = [id, "\'" + dt + "\'", "\'" + user + "\'", mode, quantity, price]
     insert("wish", values)
     
