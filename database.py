@@ -1,62 +1,35 @@
 import pymysql 
+import time
 
 
 db_user = ""
 db_password = ""
 
 
-def test_database():
-    conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
-    try:
-        with conn.cursor() as cursor:
-            cursor.execute("select * from users;")
-            results = cursor.fetchall()
-            for row in results:
-                id = row[0]
-                username = row[1]
-                password = row[2]
-                print(id, username, password)
-    finally:
-        conn.close()
-
-
-def read_transaction():
+def read_table(table_name):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
     table = []
     try:
         with conn.cursor() as cursor:
-            cursor.execute("select * from transaction;")
+            cursor.execute("select * from " + table_name + ";")
             results = cursor.fetchall()
             for row in results:
-                id = row[0]
-                time = row[1]
-                buy_user = row[2]
-                sell_user = row[3]
-                quantity = row[4]
-                price = row[5]
-                print(id, time, buy_user, sell_user, quantity, price)
                 table.append(row)
     finally:
         conn.close()
         return table
 
-
-def read_wish():
+def insert(table_name, values):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
     table = []
     try:
         with conn.cursor() as cursor:
-            cursor.execute("select * from wish;")
-            results = cursor.fetchall()
-            for row in results:
-                id = row[0]
-                time = row[1]
-                user = row[2]
-                mode = row[3]
-                quantity = row[4]
-                price = row[5]
-                print(id, time, user, mode, quantity, price)
-                table.append(row)
+            values_str = "("
+            for val in values:
+                values_str += str(val) + ","
+            values_str = values_str[:-1] + ")"
+            cursor.execute("insert into " + table_name + " values " + values_str)
+            conn.commit()
     finally:
         conn.close()
         return table

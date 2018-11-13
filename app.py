@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from database import *
+from transaction import *
 
 app = Flask(__name__)
 
@@ -17,12 +18,23 @@ def test():
         return str(e)
     return 'success'
 
+@app.route('/process')
+def process():
+    try:
+        wish_table = read_table("wish")
+    except Exception as e:
+        print(e)
+        return str(e)
+    return 'success'
+
 @app.route('/read')
 def read():
     try:
-        transaction_table = read_transaction()
-        wish_table = read_wish()
+        transaction_table = read_table("transaction")
+        wish_table = read_table("wish")
+        print('transaction:')
         print(transaction_table)
+        print('wish')
         print(wish_table)
     except Exception as e:
         print(e)
