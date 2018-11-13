@@ -25,7 +25,7 @@ def read_table(table_name):
 
 def insert(table_name, values):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
-    table = []
+    result = "insert failed"
     try:
         with conn.cursor() as cursor:
             values_str = "("
@@ -35,6 +35,7 @@ def insert(table_name, values):
             print(values_str)
             cursor.execute("insert into " + table_name + " values " + values_str)
             conn.commit()
+            result = "insert success"
     except Exception as e:
         print(e)
         conn.close()
