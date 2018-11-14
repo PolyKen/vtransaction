@@ -51,7 +51,10 @@ def read_wish():
 @app.route('/add-wish/<user>/<mode>/<quantity>/<price>')
 def add_wish(user, mode, quantity, price):
     try:
-        add_wish(user, int(mode), int(quantity), float(price))
+        add_wish_to_db(user, int(mode), int(quantity), float(price))
+    except Exception as e:
+        print(e)
+        return str(e)
     return 'add success'
 
 
