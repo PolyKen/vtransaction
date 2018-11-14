@@ -1,6 +1,8 @@
 function read_wish() {
     $.get("/read-wish", function(data){
         console.log(data);
+        let p = JSON.parse(data);
+        console.log(p);
     });
 }
 
