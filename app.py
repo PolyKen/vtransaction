@@ -45,10 +45,10 @@ def read_wish(mode):
     try:
         wish_table = read_table("wish")
         buy_table, sell_table = split_buy_and_sell_tables(wish_table)
-        if mode is "buy":
+        if mode == "buy":
             print(buy_table)
             return str(buy_table)
-        if mode is "sell":
+        if mode == "sell":
             print(sell_table)
             return str(sell_table)
     except Exception as e:
