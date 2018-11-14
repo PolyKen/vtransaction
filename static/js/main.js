@@ -1,6 +1,18 @@
 $(document).ready(function() {
   add_log("start");
   update_canvas();
+  $("#read-wish").on("click", function() {
+    read_wish();
+  })
+
+  $("#read-transaction").on("click", function() {
+    read_transaction();
+  })
+
+  $("#add-wish").on("click", function() {
+    add_wish("test_user", "1", "2", "3");
+  })
+
   $("#user-1").prop("checked", true);
   user_id = "Tom";
 
