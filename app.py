@@ -32,7 +32,7 @@ def process():
 def read_transaction():
     try:
         transaction_table = read_table("transaction")
-        return transaction_table
+        return str(transaction_table)
     except Exception as e:
         print(e)
         return str(e)
@@ -42,7 +42,7 @@ def read_transaction():
 def read_wish():
     try:
         wish_table = read_table("wish")
-        return wish_table
+        return str(wish_table)
     except Exception as e:
         print(e)
         return str(e)
