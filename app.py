@@ -32,6 +32,7 @@ def process():
 def read_transaction():
     try:
         transaction_table = read_table("transaction")
+        print(transaction_table)
         return str(transaction_table)
     except Exception as e:
         print(e)
@@ -42,7 +43,10 @@ def read_transaction():
 def read_wish():
     try:
         wish_table = read_table("wish")
-        return str(wish_table)
+        buy_table, sell_table = split_buy_and_sell_tables(wish_table)
+        print(buy_table)
+        print(sell_table)
+        return str([buy_table, sell_table])
     except Exception as e:
         print(e)
         return str(e)
