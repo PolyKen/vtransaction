@@ -41,7 +41,7 @@ def read_transaction():
 
 @app.route('/read-wish/<mode>')
 def read_wish(mode):
-    print(mode)
+    print(mode, type(mode), len(mode))
     assert(mode is "buy" or mode is "sell")
     try:
         wish_table = read_table("wish")
