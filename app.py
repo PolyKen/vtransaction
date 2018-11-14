@@ -41,7 +41,7 @@ def read_transaction():
 
 @app.route('/read-wish/<mode>')
 def read_wish(mode):
-    assert(mode is "buy" or mode is "sell")
+    assert(mode is "buy" or mode is "sell", "invalid mode = " + mode)
     try:
         wish_table = read_table("wish")
         buy_table, sell_table = split_buy_and_sell_tables(wish_table)
