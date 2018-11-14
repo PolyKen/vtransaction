@@ -42,4 +42,4 @@ def insert(table_name, values):
         return -1
     finally:
         conn.close()
-        return table
+        return result
