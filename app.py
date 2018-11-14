@@ -37,7 +37,7 @@ def read_transaction():
     except Exception as e:
         print(e)
         return str(e)
-    return 'read success'
+    return 'read failed'
 
 @app.route('/read-wish/<mode>')
 def read_wish(mode):
@@ -53,7 +53,7 @@ def read_wish(mode):
     except Exception as e:
         print(e)
         return str(e)
-    return 'read success'
+    return 'read failed'
 
 @app.route('/add-wish/<user>/<mode>/<quantity>/<price>')
 def add_wish(user, mode, quantity, price):
