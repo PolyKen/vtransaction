@@ -39,14 +39,17 @@ def read_transaction():
         return str(e)
     return 'read success'
 
-@app.route('/read-wish')
-def read_wish():
+@app.route('/read-wish/<mode>')
+def read_wish(mode):
     try:
         wish_table = read_table("wish")
         buy_table, sell_table = split_buy_and_sell_tables(wish_table)
-        print(buy_table)
-        print(sell_table)
-        return str([buy_table, sell_table])
+        if mode is "buy":
+            print(buy_table)
+            return str(buy_table)
+        if mode is "sell":
+            print(sell_table)
+            return str(sell_table)
     except Exception as e:
         print(e)
         return str(e)

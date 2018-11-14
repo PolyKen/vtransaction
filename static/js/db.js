@@ -1,9 +1,16 @@
 function read_wish() {
-    $.get("/read-wish", function(data){
+    $.get("/read-wish/buy", function(data){
         console.log(data);
-        let p = JSON.parse(data);
-        console.log(p);
+        console.log(parse_wish_table(data));
     });
+    $.get("/read-wish/sell", function(data){
+        console.log(data);
+        console.log(parse_wish_table(data));
+    });
+}
+
+function parse_wish_table(raw_data) {
+    return JSON.parse(raw_data);
 }
 
 function read_transaction() {
