@@ -20,7 +20,7 @@ function add_wish(user, mode, quantity, price) {
     if (typeof(price) != "string") {
         price = price.toString();
     }
-    $.get("/add-wish/" + user + '/' + mode + '/' + quantity + '/' + price + '/', function(data) {
+    $.get("/add-wish/" + user + '/' + mode + '/' + quantity + '/' + price, function(data) {
         console.log(data);
     });
 }
