@@ -46,8 +46,8 @@ def read_transaction():
 def read_wish(mode):
     assert(mode == "buy" or mode == "sell")
     try:
-        wish_table = read_table("wish")
-        buy_table, sell_table = split_buy_and_sell_tables(wish_table)
+        buy_table = read_ordered_table(0)
+        sell_table = read_ordered_table(1)
         if mode == "buy":
             print("buy:", buy_table)
             return str(buy_table)
