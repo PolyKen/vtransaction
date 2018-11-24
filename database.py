@@ -114,7 +114,7 @@ def read_latest_wish():
     try:
         with conn.cursor() as cursor:
             cursor.execute("select * from wish order by id desc limit 1;")
-            result = cursor.fetchall()
+            result = cursor.fetchall()[0]
             print(result)
     except Exception as e:
         print(e)
