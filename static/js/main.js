@@ -258,6 +258,21 @@ function sort(table, sort_ind, order) {
   }
 }
 
+function update_wish_table_from_db(tbody_selector, table_array) {
+  let tbody = $(tbody_selector);
+  tbody.empty();
+  for (let i = 0; i < table_array.length; i++) {
+    let each_row = "<tr>";
+    let obj = table_array[i];
+    each_row += "<td>" + obj.id + "</td>";
+    each_row += "<td>" + obj.user + "</td>";
+    each_row += "<td>" + obj.quantity + "</td>";
+    each_row += "<td>" + obj.price + "</td>";
+    each_row += "</tr>";
+    tbody.append(each_row);
+  }
+}
+
 function update_table(tbody_selector, table_array) {
   let tbody = $(tbody_selector);
   tbody.empty();
