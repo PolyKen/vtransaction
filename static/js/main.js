@@ -35,6 +35,8 @@ $(document).ready(function () {
   });
 
   $("#confirm").on("click", confirm_wish);
+
+  $("#process").on("click", process);
 });
 
 var user_id = "admin";
@@ -56,6 +58,12 @@ function confirm_wish() {
   let url = "/add-wish" + "/" + user_id + "/" + mode + "/" + num + "/" + price;
   $.get(url, function () {
     console.log("add wish");
+  })
+}
+
+function process() {
+  $.get("/process", function(data) {
+    console.log(data);
   })
 }
 

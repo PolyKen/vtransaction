@@ -22,7 +22,10 @@ def test():
 def process():
     try:
         wish_table = read_table("wish")
-        process_transaction(wish_table)
+        buy_table, sell_table = process_transaction(wish_table)
+        print("After Processing:")
+        print("buy:", buy_table)
+        print("sell:", sell_table)
     except Exception as e:
         print(e)
         return str(e)
