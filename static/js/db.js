@@ -1,12 +1,26 @@
 function read_wish() {
     $.get("/read-wish/buy", function (data) {
-        let buy_wish_table = parse_wish_table(data);
-        update_wish_table_from_db(".buy-list tbody", buy_wish_table); 
+        let buy_table = parse_wish_table(data);
+        update_wish_table_from_db(".buy-list tbody", buy_table); 
+        if (buy_table.length > 0) {
+            start_price = buy_table[buy_table.length - 1][2];
+            end_price = buy_table[0][2];
+        }
     });
     $.get("/read-wish/sell", function (data) {
-        let sell_wish_table = parse_wish_table(data);
-        update_wish_table_from_db(".sell-list tbody", sell_wish_table); 
+        let sell_table = parse_wish_table(data);
+        update_wish_table_from_db(".sell-list tbody", sell_table); 
+        if (sell_table.length > 0) {
+            end_price = max(end_price, sell_table[sell_table.length - 1][2]);
+            start_price = min(start_price, sell_table[0][2]);
+        }
     });
+    start_price = Math.floor(start_price);
+    end_price = Math.ceil(end_price);
+        
+    let canvas = update_canvas();
+    update_bid_on_canvas(canvas, buy_table, "red");
+    update_bid_on_canvas(canvas, sell_table, "green");
 }
 
 function parse_wish_table(raw_data) {

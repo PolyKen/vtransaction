@@ -59,6 +59,7 @@ function confirm_wish() {
   $.get(url, function () {
     console.log("add wish");
   })
+
 }
 
 function process() {
