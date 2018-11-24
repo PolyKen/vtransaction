@@ -1,9 +1,13 @@
 function read_wish() {
     $.get("/read-wish/buy", function (data) {
-        console.log(parse_wish_table(data));
+        let buy_wish_table = parse_wish_table(data);
+        console.log(buy_wish_table);
+        update_table(".buy-list tbody", buy_wish_table); 
     });
     $.get("/read-wish/sell", function (data) {
-        console.log(parse_wish_table(data));
+        let sell_wish_table = parse_wish_table(data);
+        console.log(sell_wish_table);
+        update_table(".sell-list tbody", sell_wish_table); 
     });
 }
 
@@ -14,7 +18,6 @@ function parse_wish_table(raw_data) {
     for (let i = 0; i < raw_obj_list.length; i++) {
         let raw_obj = raw_obj_list[i];
         let obj = parse_obj(raw_obj);
-        console.log(obj);
         obj_list.push(obj);
     }
     return obj_list;

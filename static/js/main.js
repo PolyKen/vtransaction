@@ -1,35 +1,35 @@
-$(document).ready(function() {
+$(document).ready(function () {
   add_log("start");
   update_canvas();
-  $("#read-wish").on("click", function() {
+  $("#read-wish").on("click", function () {
     read_wish();
   })
 
-  $("#read-transaction").on("click", function() {
+  $("#read-transaction").on("click", function () {
     read_transaction();
   })
 
-  $("#add-wish").on("click", function() {
+  $("#add-wish").on("click", function () {
     add_wish("test_user", "1", "2", "3");
   })
 
   $("#user-1").prop("checked", true);
   user_id = "Tom";
 
-  $("#buy").on("click", function() {
+  $("#buy").on("click", function () {
     $("#sell").prop("checked", false);
   });
 
-  $("#sell").on("click", function() {
+  $("#sell").on("click", function () {
     $("#buy").prop("checked", false);
   });
 
-  $("#user-1").on("click", function() {
+  $("#user-1").on("click", function () {
     $("#user-2").prop("checked", false);
     user_id = "Tom";
   });
 
-  $("#user-2").on("click", function() {
+  $("#user-2").on("click", function () {
     $("#user-1").prop("checked", false);
     user_id = "Jerry";
   });
@@ -54,7 +54,7 @@ function confirm_wish() {
   let price = $("#price").val();
   let num = $("#num").val();
   let url = "/add-wish" + "/" + user_id + "/" + mode + "/" + num + "/" + price;
-  $.get(url, function(){
+  $.get(url, function () {
     console.log("add wish");
   })
 }
@@ -112,11 +112,11 @@ function confirm() {
 }
 
 function max(a, b) {
-    return a > b ? a : b;
+  return a > b ? a : b;
 }
 
 function min(a, b) {
-    return a < b ? a : b;
+  return a < b ? a : b;
 }
 
 function process_transaction(buy_or_sell) {
@@ -422,7 +422,7 @@ function update_bid_on_canvas(canvas, table, color) {
       pos =
         start_pos +
         ((end_pos - start_pos) * (price - start_price)) /
-          (end_price - start_price);
+        (end_price - start_price);
     } else {
       pos = (start_pos + end_pos) / 2;
     }
