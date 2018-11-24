@@ -12,7 +12,7 @@ def read_ordered_table(mode):
     try:
         with conn.cursor() as cursor:
             order = "desc" if mode else "asc"
-            cursor.execute("select * from wish where mode=" + str(mode) + " order by price order by id " + order + ";")
+            cursor.execute("select * from wish where mode=" + str(mode) + " order by price " + order + ";")
             results = cursor.fetchall()
             for row in results:
                 table.append(row)
