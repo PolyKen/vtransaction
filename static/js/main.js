@@ -34,7 +34,7 @@ $(document).ready(function() {
     user_id = "Jerry";
   });
 
-  $("#confirm").on("click", confirm);
+  $("#confirm").on("click", confirm_wish);
 });
 
 var user_id = "admin";
@@ -47,6 +47,17 @@ var end_pos = 0;
 
 var buy_table = new Array();
 var sell_table = new Array();
+
+function confirm_wish() {
+  let mode = $("#buy").prop("checked");
+  mode = mode ? "buy " : "sell ";
+  let price = $("#price").val();
+  let num = $("#num").val();
+  let url = "/add-wish" + "/" + user_id + "/" + mode + "/" + num + "/" + price;
+  $.get(url, function(){
+    console.log("add wish");
+  })
+}
 
 function confirm() {
   let mode = $("#buy").prop("checked");
