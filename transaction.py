@@ -35,21 +35,26 @@ def process_transaction(wish_table):
                     if buy_quantity < sell_quantity:
                         sell_table[i]["quantity"] -= buy_quantity
                         update_quantity(id=sell_table[i]["id"], new_value=sell_table[i]["quantity"])
+                        
+                        delete_wish(id=buy_table[0]["id"])
                         buy_table.pop(0)
-                        delete_wish(0)
+
                         add_transaction_to_db(buy_user, sell_user, buy_quantity, sell_price)
                         return buy_table, sell_table
                     else:
                         buy_quantity -= sell_quantity
+
+                        delete_wish(id=sell_table[0]["id"])
                         sell_table.pop(0)
-                        delete_wish(1)
+                        
                         add_transaction_to_db(buy_user, sell_user, sell_quantity, sell_price)
                         if buy_quantity > 0:
                             buy_table[0]["quantity"] = buy_quantity
                             update_quantity(id=buy_table[0]["id"], new_value=buy_table[0]["quantity"])
                         else:
+                            delete_wish(id=buy_table[0]["id"])
                             buy_table.pop(0)
-                            delete_wish(0)
+                            
                             return buy_table, sell_table
 
             if mode == 1:   # sell
@@ -62,21 +67,25 @@ def process_transaction(wish_table):
                     if sell_quantity < buy_quantity:
                         buy_table[i]["quantity"] -= sell_quantity
                         update_quantity(id=buy_table[i]["id"], new_value=buy_table[i]["quantity"])
+                        
+                        delete_wish(id=sell_table[0]["id"])
                         sell_table.pop(0)
-                        delete_wish(1)
+                        
                         add_transaction_to_db(buy_user, sell_user, sell_quantity, buy_price)
                         return buy_table, sell_table
                     else:
                         sell_quantity -= buy_quantity
+
+                        delete_wish(id=buy_table[0]["id"])
                         buy_table.pop(0)
-                        delete_wish(0)
+                        
                         add_transaction_to_db(buy_user, sell_user, buy_quantity, sell_price)
                         if sell_quantity > 0:
                             sell_table[0]["quantity"] = sell_quantity
                             update_quantity(id=buy_table[i]["id"], new_value=buy_table[i]["quantity"])
                         else:
+                            delete_wish(id=sell_table[0]["id"])
                             sell_table.pop(0)
-                            delete_wish(1)
                             return buy_table, sell_table
 
 

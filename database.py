@@ -39,7 +39,23 @@ def clear_table(table_name):
         conn.close()
         return result
 
-def delete_wish(mode):
+def delete_wish(id):
+    conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
+    result = "delete failed"
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("delete from wish where id=" + str(id))
+            conn.commit()
+            result = "delete success"
+    except Exception as e:
+        print(e)
+        conn.close()
+        return -1
+    finally:
+        conn.close()
+        return result
+
+def delete_first_wish(mode):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
     result = "delete failed"
     try:
