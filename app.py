@@ -25,6 +25,7 @@ def process():
         sell_table = process_table(read_ordered_table(1))
         latest_wish = read_latest_wish()
         mode = latest_wish[3]
+        print(mode, buy_table, sell_table)
         process_transaction(mode, buy_table, sell_table)
     except Exception as e:
         print(e)
