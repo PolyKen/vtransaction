@@ -461,14 +461,14 @@ function update_bid_on_canvas(canvas, table, color) {
     //     color
     //   )
     // );
-    canvas.add(
-      add_scale_text(
-        price.toString() + "元",
-        14,
-        pos - 3,
-        base_height + 60,
-        color
-      )
-    );
+    // canvas.add(
+    //   add_scale_text(
+    //     price.toString() + "元",
+    //     14,
+    //     pos - 3,
+    //     base_height + 60,
+    //     color
+    //   )
+    // );
   }
 }
