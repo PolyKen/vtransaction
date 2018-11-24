@@ -12,7 +12,7 @@ function read_wish() {
 }
 
 function parse_wish_table(raw_data) {
-    print(raw_data)
+    console.log(raw_data);
     let obj_pattern = /\"(.*?)\"/g;
     let raw_obj_list = raw_data.match(obj_pattern);
     let obj_list = [];
