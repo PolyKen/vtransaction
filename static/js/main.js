@@ -334,15 +334,15 @@ function add_scale_text(text, size, x_pos, y_pos) {
     left: x_pos,
     top: y_pos,
     hasControls: false,
-    fill: "black",
-    fontSize: size,
-    lockMovementX: true,
-    lockMovementY: true,
-    lockRotation: true,
-    lockScalingX: true,
-    lockScalingY: true,
-    lockScalingFlip: true,
-    lockSkewing: true
+    fill: "black"
+    // fontSize: size,
+    // lockMovementX: true,
+    // lockMovementY: true,
+    // lockRotation: true,
+    // lockScalingX: true,
+    // lockScalingY: true,
+    // lockScalingFlip: true,
+    // lockSkewing: true
   });
   return scale_text;
 }
