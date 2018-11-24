@@ -57,7 +57,8 @@ function parse_obj(obj_string) {
 
 function read_transaction() {
     $.get("/read-transaction", function (data) {
-        console.log(data);
+        let transaction_table = parse_wish_table(data);
+        console.log(transaction_table);
     });
 }
 
