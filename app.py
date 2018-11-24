@@ -46,12 +46,12 @@ def read_transaction():
 def read_wish(mode):
     assert(mode == "buy" or mode == "sell")
     try:
-        buy_table = read_ordered_table(0)
-        sell_table = read_ordered_table(1)
         if mode == "buy":
+            buy_table = read_ordered_table(0)
             print("buy:", buy_table)
             return str(buy_table)
         if mode == "sell":
+            sell_table = read_ordered_table(1)
             print("sell:", sell_table)
             return str(sell_table)
     except Exception as e:
