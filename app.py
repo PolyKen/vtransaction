@@ -26,9 +26,9 @@ def process():
         print("\nBefore Processing:")
         print("buy:", buy_table)
         print("sell:", sell_table)
-        latest_wish = process_table([read_latest_wish()])[0]
+        latest_wish = read_latest_wish()
         print("latest wish:", latest_wish)
-        mode = latest_wish["mode"]
+        mode = latest_wish[3]
         process_transaction(mode, buy_table, sell_table)
         print("\nAfter Processing:")
         print("buy:", buy_table)
