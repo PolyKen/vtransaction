@@ -50,7 +50,7 @@ var sell_table = new Array();
 
 function confirm_wish() {
   let mode = $("#buy").prop("checked");
-  mode = mode ? "buy " : "sell ";
+  mode = mode ? "0" : "1";
   let price = $("#price").val();
   let num = $("#num").val();
   let url = "/add-wish" + "/" + user_id + "/" + mode + "/" + num + "/" + price;
