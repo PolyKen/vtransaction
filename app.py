@@ -12,7 +12,7 @@ def index():
 @app.route('/test')
 def test():
     try:
-        test_database()
+        print("donothing")
     except Exception as e:
         print(e)
         return str(e)

@@ -10,6 +10,7 @@ def process_transaction(mode, buy_table, sell_table):
 
         highest_buy_price = buy_table[0]["price"]
         lowest_sell_price = sell_table[0]["price"]
+        print(highest_buy_price, lowest_sell_price)
 
         if highest_buy_price < lowest_sell_price:
             return
