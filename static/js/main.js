@@ -4,15 +4,11 @@ $(document).ready(function () {
   $("#read-wish").on("click", function () {
     process();
     setTimeout(read_wish, 300);
-  })
+  });
 
   $("#read-transaction").on("click", function () {
     read_transaction();
-  })
-
-  $("#add-wish").on("click", function () {
-    add_wish("test_user", "1", "2", "3");
-  })
+  });
 
   $("#user-1").prop("checked", true);
   user_id = "Tom";
