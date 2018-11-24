@@ -37,7 +37,7 @@ function parse_obj(obj_string) {
     let time_ptn = /datetime(.*)/;
     let time = obj_string.match(time_ptn)[0].slice(9, -1);
     console.log("time:", time);
-    let quantity_ptn = /'quantity': .*[,}]/;
+    let quantity_ptn = /'quantity': .*?[,}]/;
     let quantity = obj_string.match(quantity_ptn)[0].slice(12, -1);
     quantity = Number(quantity);
     console.log("quantity:", quantity);
