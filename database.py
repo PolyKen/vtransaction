@@ -11,7 +11,7 @@ def read_ordered_table(mode):
     table = []
     try:
         with conn.cursor() as cursor:
-            order = "desc" if mode else "asc"
+            order = "asc" if mode else "desc"
             cursor.execute("select * from wish where mode=" + str(mode) + " order by price " + order + ";")
             results = cursor.fetchall()
             for row in results:
