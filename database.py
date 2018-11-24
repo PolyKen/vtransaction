@@ -97,7 +97,7 @@ def update_quantity(id, new_value):
     result = "update failed"
     try:
         with conn.cursor() as cursor:
-            cursor.execute("update wish set quantity=" + new_value + " where id=" + id + ";")
+            cursor.execute("update wish set quantity=" + str(new_value) + " where id=" + str(id) + ";")
             conn.commit()
             result = "update success"
     except Exception as e:

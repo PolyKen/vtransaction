@@ -29,7 +29,7 @@ def process():
         latest_wish = read_latest_wish()
         print("latest wish:", latest_wish)
         mode = latest_wish[3]
-        print("mode: ", mode)
+        print("mode:", mode)
         process_transaction(int(mode), buy_table, sell_table)
         print("\nAfter Processing:")
         print("buy:", buy_table)
