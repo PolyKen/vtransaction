@@ -23,12 +23,12 @@ def process():
     try:
         buy_table = process_table(read_ordered_table(0))
         sell_table = process_table(read_ordered_table(1))
-        print("Before Processing:")
+        print("\nBefore Processing:")
         print("buy:", buy_table)
         print("sell:", sell_table)
         mode = process_table([read_latest_wish()])["mode"]
         process_transaction(mode, buy_table, sell_table)
-        print("After Processing:")
+        print("\nAfter Processing:")
         print("buy:", buy_table)
         print("sell:", sell_table)
     except Exception as e:
