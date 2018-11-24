@@ -3,13 +3,6 @@ import datetime
 from database import *
 
 
-def test_database():
-    transaction_table = read_table("transaction")
-    wish_table = read_table("wish")
-    add_transaction_to_db("Tom", "Jerry", 10, 200)
-    add_wish_to_db("Kenny", 0, 20, 1000)
-
-
 def process_transaction(mode, buy_table, sell_table):
     while True:
         if len(buy_table) == 0 or len(sell_table) == 0:
