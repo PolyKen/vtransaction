@@ -2,7 +2,8 @@ $(document).ready(function () {
   add_log("start");
   update_canvas();
   $("#read-wish").on("click", function () {
-    read_wish();
+    process();
+    setTimeout(read_wish, 300);
   })
 
   $("#read-transaction").on("click", function () {
