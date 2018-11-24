@@ -15,6 +15,7 @@ def read_ordered_table(mode):
             cursor.execute("select * from wish where mode=" + str(mode) + " order by price " + order + ";")
             results = cursor.fetchall()
             for row in results:
+                row = str(row)
                 row[0], row[-1] = '{', '}'
                 table.append(row)
     except Exception as e:
