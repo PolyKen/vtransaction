@@ -16,7 +16,7 @@ def read_ordered_table(mode):
             results = cursor.fetchall()
             for row in results:
                 row = str(row)
-                row = "{" + row[1:-1] + "}"
+                # row = "{" + row[1:-1] + "}"
                 table.append(row)
     except Exception as e:
         print(e)
