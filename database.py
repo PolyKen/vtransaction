@@ -9,21 +9,22 @@ db_password = ""
 def read_ordered_table(mode):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
     table = []
+    str_table = []
     try:
         with conn.cursor() as cursor:
             order = "asc" if mode else "desc"
             cursor.execute("select * from wish where mode=" + str(mode) + " order by price " + order + ";")
             results = cursor.fetchall()
             for row in results:
-                row = str(row)
                 table.append(row)
+                str_table.append(str(row))
     except Exception as e:
         print(e)
         conn.close()
         return -1
     finally:
         conn.close()
-        return table
+        return table, str_table
 
 def read_table(table_name):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")

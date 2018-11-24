@@ -21,12 +21,12 @@ def test():
 @app.route('/process')
 def process():
     try:
-        buy_table = process_table(read_ordered_table(0))
-        sell_table = process_table(read_ordered_table(1))
+        buy_table, _ = read_ordered_table(0)
+        sell_table, _ = read_ordered_table(1)
         latest_wish = read_latest_wish()
         mode = latest_wish[3]
         print(mode, buy_table, sell_table)
-        process_transaction(mode, buy_table, sell_table)
+        process_transaction(mode, process_table(buy_table), process_table(sell_table))
     except Exception as e:
         print(e)
         return str(e)
@@ -35,7 +35,7 @@ def process():
 @app.route('/read-transaction')
 def read_transaction():
     try:
-        transaction_table = read_table("transaction")
+        _, transaction_table = read_table("transaction")
         print(transaction_table)
         return str(transaction_table)
     except Exception as e:
@@ -48,11 +48,11 @@ def read_wish(mode):
     assert(mode == "buy" or mode == "sell")
     try:
         if mode == "buy":
-            buy_table = read_ordered_table(0)
+            _, buy_table = read_ordered_table(0)
             print("buy:", buy_table)
             return str(buy_table)
         if mode == "sell":
-            sell_table = read_ordered_table(1)
+            _, sell_table = read_ordered_table(1)
             print("sell:", sell_table)
             return str(sell_table)
     except Exception as e:
