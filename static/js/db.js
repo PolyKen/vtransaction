@@ -9,7 +9,7 @@ function read_wish() {
         $.get("/read-wish/sell", function (data) {
             let sell_table = "";
             if (data != "[]") {
-                sell_table = parse_with_table(data);
+                sell_table = parse_wish_table(data);
             }
             console.log(sell_table);
             update_wish_table_from_db(".sell-list tbody", sell_table); 
