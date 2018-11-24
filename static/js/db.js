@@ -1,12 +1,13 @@
 function read_wish() {
     $.get("/read-wish/buy", function (data) {
-        let buy_table;
+        let buy_table = "";
         if (data != "[]") {
             buy_table = parse_wish_table(data);
         }
         console.log(buy_table);
         update_wish_table_from_db(".buy-list tbody", buy_table); 
         $.get("/read-wish/sell", function (data) {
+            let sell_table = "";
             if (data != "[]") {
                 sell_table = parse_with_table(data);
             }
