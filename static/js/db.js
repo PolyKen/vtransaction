@@ -48,6 +48,7 @@ function parse_obj(obj_string) {
     obj.mode = mode;
     obj.quantity = quantity;
     obj.price = price;
+    return obj;
 }
 
 function read_transaction() {
