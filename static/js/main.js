@@ -451,16 +451,16 @@ function update_bid_on_canvas(canvas, table, color) {
       pos = (start_pos + end_pos) / 2;
     }
     canvas.add(add_triangle(pos, base_height + 5, color));
-    canvas.add(add_scale_text(user_id, 14, pos - 3, base_height + 20, color));
-    canvas.add(
-      add_scale_text(
-        hand.toString() + "手",
-        14,
-        pos - 3,
-        base_height + 40,
-        color
-      )
-    );
+    //canvas.add(add_scale_text(user_id, 14, pos - 3, base_height + 20, color));
+    // canvas.add(
+    //   add_scale_text(
+    //     hand.toString() + "手",
+    //     14,
+    //     pos - 3,
+    //     base_height + 40,
+    //     color
+    //   )
+    // );
     canvas.add(
       add_scale_text(
         price.toString() + "元",
