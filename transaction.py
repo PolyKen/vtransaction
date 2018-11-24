@@ -10,15 +10,11 @@ def test_database():
     add_wish_to_db("Kenny", 0, 20, 1000)
 
 
-def process_transaction(wish_table):
-    mode = wish_table[-1][3]
-    buy_table, sell_table = split_buy_and_sell_tables(wish_table)
+def process_transaction(mode, buy_table, sell_table):
     while True:
         if len(buy_table) == 0 or len(sell_table) == 0:
             return
 
-        sort_by_key(buy_table, "price", "decrease")
-        sort_by_key(sell_table, "price", "rise")
         highest_buy_price = buy_table[0]["price"]
         lowest_sell_price = sell_table[0]["price"]
 
@@ -102,7 +98,19 @@ def add_wish_to_db(user, mode, quantity, price):
     dt = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     values = [id, "\'" + dt + "\'", "\'" + user + "\'", mode, quantity, price]
     insert("wish", values)
-    
+
+def process_table(raw_table):
+    table = []
+    for row in raw_table:
+        id = row[0]
+        time = row[1]
+        user = row[2]
+        mode = row[3]
+        quantity = row[4]
+        price = row[5]
+        record = {"id": id, "time": time, "user": user, "quantity": quantity, "price": price}
+        table.append(record)
+    return table
 
 def split_buy_and_sell_tables(wish_table):
     buy_table = []

@@ -5,6 +5,24 @@ import time
 db_user = ""
 db_password = ""
 
+# mode = 0(buy), 1(sell)
+def read_ordered_table(mode):
+    conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
+    table = []
+    try:
+        with conn.cursor() as cursor:
+            order = "desc" if mode else "asc"
+            cursor.execute("select * from wish where mode=" + mode + " order by price order by " + order + ";")
+            results = cursor.fetchall()
+            for row in results:
+                table.append(row)
+    except Exception as e:
+        print(e)
+        conn.close()
+        return -1
+    finally:
+        conn.close()
+        return table
 
 def read_table(table_name):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
@@ -28,7 +46,7 @@ def clear_table(table_name):
     result = "clear failed"
     try:
         with conn.cursor() as cursor:
-            cursor.execute("trancate table " + table_name)
+            cursor.execute("trancate table " + table_name + ";")
             conn.commit()
             result = "clear success"
     except Exception as e:
@@ -44,7 +62,7 @@ def delete_wish(id):
     result = "delete failed"
     try:
         with conn.cursor() as cursor:
-            cursor.execute("delete from wish where id=" + str(id))
+            cursor.execute("delete from wish where id=" + str(id) + ";")
             conn.commit()
             result = "delete success"
     except Exception as e:
@@ -61,9 +79,9 @@ def delete_first_wish(mode):
     try:
         with conn.cursor() as cursor:
             if mode == 0:
-                cursor.execute("delete from wish where mode=0 limit 1")
+                cursor.execute("delete from wish where mode=0 limit 1;")
             else:
-                cursor.execute("delete from wish where mode=1 limit 1")
+                cursor.execute("delete from wish where mode=1 limit 1;")
             conn.commit()
             result = "delete success"
     except Exception as e:
@@ -79,9 +97,24 @@ def update_quantity(id, new_value):
     result = "update failed"
     try:
         with conn.cursor() as cursor:
-            cursor.execute("update wish set quantity=" + new_value + " where id=" + id)
+            cursor.execute("update wish set quantity=" + new_value + " where id=" + id + ";")
             conn.commit()
             result = "update success"
+    except Exception as e:
+        print(e)
+        conn.close()
+        return -1
+    finally:
+        conn.close()
+        return result
+
+def read_latest_wish():
+    conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
+    result = "none"
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("select * from wish order by id desc limit 1;")
+            result = cursor.fetch()
     except Exception as e:
         print(e)
         conn.close()
@@ -100,7 +133,7 @@ def insert(table_name, values):
                 values_str += str(val) + ","
             values_str = values_str[:-1] + ")"
             print(values_str)
-            cursor.execute("insert into " + table_name + " values " + values_str)
+            cursor.execute("insert into " + table_name + " values " + values_str + ";")
             conn.commit()
             result = "insert success"
     except Exception as e:

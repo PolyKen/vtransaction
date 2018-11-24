@@ -21,8 +21,13 @@ def test():
 @app.route('/process')
 def process():
     try:
-        wish_table = read_table("wish")
-        buy_table, sell_table = process_transaction(wish_table)
+        buy_table = process_table(read_ordered_table(0))
+        sell_table = process_table(read_ordered_table(1))
+        print("Before Processing:")
+        print("buy:", buy_table)
+        print("sell:", sell_table)
+        mode = process_table(read_latest_wish())["mode"]
+        process_transaction(mode, buy_table, sell_table)
         print("After Processing:")
         print("buy:", buy_table)
         print("sell:", sell_table)
