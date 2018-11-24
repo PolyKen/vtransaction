@@ -1,10 +1,10 @@
 function read_wish() {
     $.get("/read-wish/buy", function (data) {
-        let buy_table = parse_wish_table(data);
+        let buy_table = data? parse_wish_table(data): [];
         console.log(buy_table);
         update_wish_table_from_db(".buy-list tbody", buy_table); 
         $.get("/read-wish/sell", function (data) {
-            let sell_table = parse_wish_table(data);
+            let sell_table = data? parse_wish_table(data): [];
             console.log(sell_table);
             update_wish_table_from_db(".sell-list tbody", sell_table); 
 
