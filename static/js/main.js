@@ -432,7 +432,7 @@ function update_bid_on_canvas(canvas, table, color) {
   let height = $("#jumbotron-canv").css("height");
   height = height.slice(0, -2);
   let base_height = parseInt(height) / 2;
-
+  console.log(table);
   for (let i = 0; i < table.length; i++) {
     let row = table[i];
     let user_id = row[0];
