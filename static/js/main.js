@@ -58,6 +58,17 @@ function confirm_wish() {
 
 }
 
+function format_dt_text(dt_array){
+    let year = dt_array[0].toString();
+    let month = dt_array[1].toString();
+    let day = dt_array[2].toString();
+    let hour = dt_array[3].toString();
+    let minute = dt_array[4].toString();
+    let second = dt_array[5].toString();
+    let text = year + "." + month + "." + day + " " + hour + ":" + minute + ":" + second;
+    return text;
+}
+
 function show_history() {
     $.get("/history/wish", function (data) {
         console.log("latest wish:", data);
@@ -67,22 +78,26 @@ function show_history() {
         let text = obj.user + " want to " +
             mode + " " + obj.quantity.toString() +
             " hand(s) with price " + obj.price.toString() +
-            ", time: " + obj.datetime.toString();
-        add_log(text, color);
-        log_wish_id.push(obj.id);
+            ", time: " + format_dt_text(obj.datetime);
+        if (log_wish_id.indexOf(obj.id) == -1) {
+            add_log(text, color);
+            log_wish_id.push(obj.id);
+        }
     })
     $.get("/history/transaction", function (data) {
         console.log("latest transaction:", data);
         let obj = parse_transaction_obj(data);
         let buy_user = obj.buy_user;
         let sell_user = obj.sell_user;
-        let text = "<b>TRANSACTION: </b>" + "BUYER: " +
+        let text = "<b>TRANSACTION: </b><br>" + "BUYER: " +
             buy_user + ", SELLER: " + sell_user +
             ", PRICE: " + obj.price.toString() +
             ", QUANTITY: " + obj.quantity.toString() +
-            "， time: " + obj.datetime.toString();
-        add_log(text, "yellow");
-        log_transaction_id.push(obj.id);
+            "， time: " + format_dt_text(obj.datetime);
+        if (log_transaction_id.index(obj.id) == -1) {
+            add_log(text, "yellow");
+            log_transaction_id.push(obj.id);
+        }
     })
 }
 
