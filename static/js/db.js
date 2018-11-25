@@ -62,8 +62,8 @@ function parse_transaction_obj(obj_string) {
     let buy_user = users[0].slice(1, -1);
     let sell_user = users[0].slice(1, -1);
     let id = Number(raw_numbers[0]);
-    let quantity = Number(raw_numbers[8]);
-    let price = Number(raw_numbers[9]);
+    let quantity = Number(raw_numbers[7]);
+    let price = Number(raw_numbers[8]);
     obj.buy_user = buy_user;
     obj.sell_user = sell_user;
     obj.id = id;
