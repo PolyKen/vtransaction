@@ -32,17 +32,6 @@ def process():
         return str(e)
     return 'process success'
 
-@app.route('/read-transaction')
-def read_transaction():
-    try:
-        _, transaction_table = read_table("transaction")
-        print(transaction_table)
-        return str(transaction_table)
-    except Exception as e:
-        print(e)
-        return str(e)
-    return 'read failed'
-
 @app.route('/read-wish/<mode>')
 def read_wish(mode):
     assert(mode == "buy" or mode == "sell")
@@ -72,12 +61,20 @@ def add_wish(user, mode, quantity, price):
 @app.route('/history/wish')
 def history_wish():
     try:
-        latest_wish = read_latest_wish_history()
+        latest_wish = read_latest_history("wish_history")
         return str(latest_wish)
     except Exception as e:
         print(e)
         return str(e)
-    return 'read latest wish success'
+
+@app.route('/history/transaction')
+def transaction_history():
+    try:
+        latest_transaction = read_latest_history("transaction")
+        return str(latest_transaction)
+    except Exception as e:
+        print(e)
+        return str(e)
 
 
 if __name__ == '__main__':

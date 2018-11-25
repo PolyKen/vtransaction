@@ -61,8 +61,13 @@ function show_history() {
         console.log("latest wish:", data);
         let obj = parse_obj(data);
         let mode = obj.mode == 0 ? "buy" : "sell";
+        let color = obj.mode == 0 ? "red" : "green";
         let text = obj.user + " want to " + mode + " " + obj.quantity.toString() + " hand(s) with price " + obj.price.toString();
-        add_log(text);
+        add_log(text, color);
+    })
+    $.get("/history/transaction", function(data) {
+        console.log("latest transaction:", data);
+        add_log(data);
     })
 }
 

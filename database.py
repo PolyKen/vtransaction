@@ -106,12 +106,12 @@ def read_latest_wish():
         conn.close()
         return result
 
-def read_latest_wish_history():
+def read_latest_history(table_name):
     conn = pymysql.connect(host="localhost", user=db_user, passwd=db_password, db="vtransaction")
     result = "none"
     try:
         with conn.cursor() as cursor:
-            cursor.execute("select * from wish_history order by id desc limit 1;")
+            cursor.execute("select * from " + table_name + " order by id desc limit 1;")
             result = cursor.fetchall()[0]
     except Exception as e:
         print(e)
