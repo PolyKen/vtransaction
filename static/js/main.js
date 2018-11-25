@@ -59,7 +59,10 @@ function confirm_wish() {
 function show_history() {
     $.get("/history/wish", function (data) {
         console.log("latest wish:", data);
-        add_log(data);
+        let obj = parse_obj(data);
+        let mode = obj.mode == 0 ? "buy" : "sell";
+        let text = obj.user + " want to " + mode + " " + obj.quantity.toString() + " hand(s) with price " + obj.price.toString();
+        add_log(text);
     })
 }
 
