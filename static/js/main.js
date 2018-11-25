@@ -38,8 +38,10 @@ var start_pos = 0;
 var end_price = 0;
 var end_pos = 0;
 
-var buy_table = new Array();
-var sell_table = new Array();
+var buy_table = [];
+var sell_table = [];
+var log_wish_id = [];
+var log_transaction_id = [];
 
 function confirm_wish() {
     let mode = $("#buy").prop("checked");
@@ -62,16 +64,25 @@ function show_history() {
         let obj = parse_wish_obj(data);
         let mode = obj.mode == 0 ? "buy" : "sell";
         let color = obj.mode == 0 ? "red" : "green";
-        let text = obj.user + " want to " + mode + " " + obj.quantity.toString() + " hand(s) with price " + obj.price.toString();
+        let text = obj.user + " want to " +
+            mode + " " + obj.quantity.toString() +
+            " hand(s) with price " + obj.price.toString() +
+            ", time: " + obj.datetime.toString();
         add_log(text, color);
+        log_wish_id.push(obj.id);
     })
     $.get("/history/transaction", function (data) {
         console.log("latest transaction:", data);
         let obj = parse_transaction_obj(data);
         let buy_user = obj.buy_user;
         let sell_user = obj.sell_user;
-        let text = "<b>TRANSACTION: </b>" + "BUYER: " + buy_user + " SELLER: " + sell_user + " PRICE: " + obj.price.toString() + " QUANTITY: " + obj.quantity.toString();
+        let text = "<b>TRANSACTION: </b>" + "BUYER: " +
+            buy_user + ", SELLER: " + sell_user +
+            ", PRICE: " + obj.price.toString() +
+            ", QUANTITY: " + obj.quantity.toString() +
+            "， time: " + obj.datetime.toString();
         add_log(text, "yellow");
+        log_transaction_id.push(obj.id);
     })
 }
 
