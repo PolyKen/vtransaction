@@ -449,10 +449,10 @@ function update_bid_on_canvas(canvas, table, color) {
     }
     canvas.add(add_triangle(pos, base_height + 5, color));
     //let user_text = add_scale_text(user_id, 14, pos - 3, base_height + 20, color);
-    let quantity_text = add_scale_text(hand.toString() + "手", 14, pos - 3, base_height + 40, color);
-    let price_text = add_scale_text(price.toString() + "元", 14, pos - 3, base_height + 60, color);
+    //let quantity_text = add_scale_text(hand.toString() + "手", 14, pos - 3, base_height + 40, color);
+    //let price_text = add_scale_text(price.toString() + "元", 14, pos - 3, base_height + 60, color);
     //canvas.add(user_text);
-    canvas.add(quantity_text);
-    canvas.add(price_text);
+    //canvas.add(quantity_text);
+    //canvas.add(price_text);
   }
 }
