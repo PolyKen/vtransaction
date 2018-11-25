@@ -39,13 +39,41 @@ function parse_wish_table(raw_data) {
     let obj_list = [];
     for (let i = 0; i < raw_obj_list.length; i++) {
         let raw_obj = raw_obj_list[i];
-        let obj = parse_obj(raw_obj);
+        let obj = parse_wish_obj(raw_obj);
         obj_list.push(obj);
     }
     return obj_list;
 }
 
-function parse_obj(obj_string) {
+function parse_transaction_obj(obj_string) {
+    //(32, datetime.datetime(2018, 11, 25, 10, 46, 33), 'Tom', 'Tom', 2, 1200.0)
+    let obj = Object();
+    let number_ptn = /\d+\.?\d*[,)]/g;
+    let user_ptn = /'.*?'/g;
+    let raw_numbers = obj_string.match(number_ptn);
+    for (let i = 0; i < raw_numbers.length; i++) {
+        raw_numbers[i] = raw_numbers[i].slice(0, -1);
+    }
+    let dt_array = [];
+    for (let i = 1; i <= 6; i++) {
+        dt_array.push(Number(raw_numbers[i]));
+    }
+    let users = obj_string.match(user_ptn);
+    let buy_user = users[0].slice(1, -1);
+    let sell_user = users[0].slice(1, -1);
+    let id = Number(raw_numbers[0]);
+    let quantity = Number(raw_numbers[8]);
+    let price = Number(raw_numbers[9]);
+    obj.buy_user = buy_user;
+    obj.sell_user = sell_user;
+    obj.id = id;
+    obj.quantity = quantity;
+    obj.price = price;
+    obj.datetime = dt_array;
+    return obj;
+}
+
+function parse_wish_obj(obj_string) {
     let obj = Object();
     //{'user': 'test_user', 'id': 3, 'price': 3.0, 'time…datetime(2018, 11, 14, 21, 1, 10), 'quantity': 2}
     //"(9, datetime.datetime(2018, 11, 24, 13, 16, 26), 'Tom', 1, 12345, 987654000.0)"
@@ -69,6 +97,7 @@ function parse_obj(obj_string) {
     obj.mode = mode;
     obj.quantity = quantity;
     obj.price = price;
+    obj.datetime = dt_array;
     return obj;
 }
 

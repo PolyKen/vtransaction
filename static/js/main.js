@@ -59,15 +59,19 @@ function confirm_wish() {
 function show_history() {
     $.get("/history/wish", function (data) {
         console.log("latest wish:", data);
-        let obj = parse_obj(data);
+        let obj = parse_wish_obj(data);
         let mode = obj.mode == 0 ? "buy" : "sell";
         let color = obj.mode == 0 ? "red" : "green";
         let text = obj.user + " want to " + mode + " " + obj.quantity.toString() + " hand(s) with price " + obj.price.toString();
         add_log(text, color);
     })
-    $.get("/history/transaction", function(data) {
+    $.get("/history/transaction", function (data) {
         console.log("latest transaction:", data);
-        add_log(data);
+        let obj = parse_transaction_obj(data);
+        let buy_user = obj.buy_user;
+        let sell_user = obj.sell_user;
+        let text = "<b>TRANSACTION: </b>" + "BUYER: " + buy_user + " SELLER: " + sell_user + " PRICE: " + obj.price.toString() + " QUANTITY: " + obj.quantity.toString();
+        add_log(text, "yellow");
     })
 }
 
