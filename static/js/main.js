@@ -94,7 +94,7 @@ function show_history() {
             ", PRICE: " + obj.price.toString() +
             ", QUANTITY: " + obj.quantity.toString() +
             "， time: " + format_dt_text(obj.datetime);
-        if (log_transaction_id.index(obj.id) == -1) {
+        if (log_transaction_id.indexOf(obj.id) == -1) {
             add_log(text, "yellow");
             log_transaction_id.push(obj.id);
         }
