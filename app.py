@@ -69,6 +69,16 @@ def add_wish(user, mode, quantity, price):
         return str(e)
     return 'add success'
 
+@app.route('/history/wish')
+def history_wish():
+    try:
+        latest_wish = read_latest_wish_history()
+        return str(latest_wish)
+    except Exception as e:
+        print(e)
+        return str(e)
+    return 'read latest wish success'
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="5000")
