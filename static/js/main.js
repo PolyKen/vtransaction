@@ -42,6 +42,7 @@ var buy_table = [];
 var sell_table = [];
 var log_wish_id = [];
 var log_transaction_id = [];
+var log_start_date = (new Date()).valueOf();
 
 function confirm_wish() {
     let mode = $("#buy").prop("checked");
