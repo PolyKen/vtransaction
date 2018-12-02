@@ -9,6 +9,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+
 @app.route('/test')
 def test():
     try:
@@ -17,6 +18,7 @@ def test():
         print(e)
         return str(e)
     return 'test success'
+
 
 @app.route('/process')
 def process():
@@ -32,9 +34,10 @@ def process():
         return str(e)
     return 'process success'
 
+
 @app.route('/read-wish/<mode>')
 def read_wish(mode):
-    assert(mode == "buy" or mode == "sell")
+    assert (mode == "buy" or mode == "sell")
     try:
         if mode == "buy":
             _, buy_table = read_ordered_table(0)
@@ -49,6 +52,7 @@ def read_wish(mode):
         return str(e)
     return 'read failed'
 
+
 @app.route('/add-wish/<user>/<mode>/<quantity>/<price>')
 def add_wish(user, mode, quantity, price):
     try:
@@ -58,6 +62,7 @@ def add_wish(user, mode, quantity, price):
         return str(e)
     return 'add success'
 
+
 @app.route('/history/wish')
 def history_wish():
     try:
@@ -66,6 +71,7 @@ def history_wish():
     except Exception as e:
         print(e)
         return str(e)
+
 
 @app.route('/history/transaction')
 def transaction_history():
